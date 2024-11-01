@@ -1,13 +1,13 @@
-# Fungsi untuk membuat grid kosong
+# Function to draw empty grid
 def create_grid(width, height):
     return [[" " for _ in range(width)] for _ in range(height)]
 
-# Fungsi untuk menggambar titik pada grid
+# function draw point
 def draw_point(grid, x, y):
     if 0 <= x < len(grid[0]) and 0 <= y < len(grid):  # Pastikan titik ada di dalam batas grid
-        grid[y][x] = "."  
+        grid[y][x] = "-"  
 
-# Fungsi untuk menggambar garis menggunakan algoritma Bresenham
+# function draw line
 def draw_line(grid, x1, y1, x2, y2):
     dx = abs(x2 - x1)
     dy = abs(y2 - y1)
@@ -27,18 +27,18 @@ def draw_line(grid, x1, y1, x2, y2):
             err += dx
             y1 += sy
 
-# Fungsi untuk menampilkan grid di terminal
+# function to show grid
 def print_grid(grid):
     for row in grid:
         print("".join(row))
 
-# Ukuran grid
-width, height = 40, 20
+# Grid size
+width, height = 50, 50
 grid = create_grid(width, height)  # Buat grid kosong
 
-# Menggambar titik dan garis secara manual
-draw_point(grid, 4, 2)           # Gambar titik di (10, 10)
-draw_line(grid, 4, 4, 30, 4)      # Gambar garis dari (2, 2) ke (30, 15)
+# call function
+draw_point(grid, 4, 2)          
+draw_line(grid, 4, 4, 30, 4)      
 
-# Tampilkan grid di terminal
+
 print_grid(grid)

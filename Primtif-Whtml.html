@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Primtif-Grafika Komputer</title>
+  </head>
+  <body>
+    <canvas id="canvas1" width="500" height="500"></canvas>
+    <script>
+      const canvas = document.getElementById("canvas1");
+      const ctx = canvas.getContext("2d");
+
+      // Draw point
+      function drawPoint(x, y) {
+        ctx.fillStyle = "green";
+        ctx.fillRect(x, y, 1, 1);
+      }
+      drawPoint(100, 20);
+      drawPoint(101, 20);
+      drawPoint(102, 20);
+      drawPoint(103, 20);
+      drawPoint(104, 20);
+      drawPoint(105, 20);
+      drawPoint(106, 20);
+      drawPoint(107, 20);
+      drawPoint(108, 20);
+      drawPoint(109, 20);
+      drawPoint(110, 20);
+
+      //Draw Line
+      function drawLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+
+      drawLine(100, 50, 100, 100);
+
+      // Create Rectangle
+      function drawRect(x, y, width, height) {
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.fillRect(x, y, width, height);
+        ctx.stroke();
+      }
+      drawRect(100, 120, 100, 100);
+
+      // Draw Circle
+      function drawCircle(x, y, radius, startCir, endCir) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, startCir, endCir);
+        ctx.stroke();
+      }
+      drawCircle(150, 300, 50, 0, Math.PI * 2);
+
+      // Draw Poligon??
+      function drawPolygon(vertices) {
+            ctx.beginPath();
+            ctx.moveTo(vertices[0][0], vertices[0][1]);
+            for (let i = 1; i < vertices.length; i++) {
+                ctx.lineTo(vertices[i][0], vertices[i][1]);
+            }
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        const triangle = [
+            [300, 200], //puncak
+            [200, 400], //kiri bawah
+            [400, 400] //kanan bawah
+        ];
+        drawPolygon(triangle);
+    </script>
+  </body>
+</html>
