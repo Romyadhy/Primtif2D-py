@@ -1,10 +1,11 @@
-***2D Primitives Implements in Python and JS***
+**2D Primitives Implements in Python and JS**
 
-_Overview_
+**Overview**
 
 Welcome to the 2D Primitives with OpenGL project! This project demonstrates how to create and render basic 2D shapes—points, lines, squares, triangles, and circles—using Python's librarys. This is for implementation about line drawing algorthm. Using Brute Force, DDA, and Bresenham. I crete this with Python and JavaScript, but over all it's python focused.
 
-***Prerequisites***
+**Prerequisites**
+
 Ensure you have Python 3.11 or above installed. You’ll also need the following libraries:
 - Pygame: For window handling and event management.
 - PyOpenGL: The core library for interfacing with OpenGL.
@@ -14,7 +15,8 @@ Ensure you have Python 3.11 or above installed. You’ll also need the following
 - OpenCV (cv2): Optional, for advanced image transformations.
 Note: If you encounter issues with PyOpenGL_accelerate, it’s optional and can be skipped.
 
-***Instalation***
+**Instalation**
+
 Clone this repository:
 `git clone https://github.com/Romyadhy/Primtif2D-py`
   - Pygame: `pip install pygame`
