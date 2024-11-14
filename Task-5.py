@@ -2,17 +2,17 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageDraw, ImageTk
 
-# Fungsi untuk membuat canvas
+# Generate Canvas
 width, height = 900, 500
 image = Image.new("RGB", (width, height), "white")
 draw = ImageDraw.Draw(image)
 
-# Function to draw a point
+# Function to draw point
 def draw_point(x, y, color="black"):
     draw.rectangle([x, y, x + 1, y + 1], fill=color)
 
-# Function to draw a line using DDA algorithm
-def draw_line_dda(x1, y1, x2, y2, color="red"):
+# Algorithm DDA
+def draw_line_dda(x1, y1, x2, y2, color="black"):
     dx = x2 - x1
     dy = y2 - y1
     steps = max(abs(dx), abs(dy))
@@ -24,8 +24,9 @@ def draw_line_dda(x1, y1, x2, y2, color="red"):
         draw_point(round(x), round(y), color)
         x += x_increment
         y += y_increment
+    update_image()
 
-# Function to draw a line using Brute Force algorithm
+# Algorithm Brute Force
 def draw_line_brute_force(x1, y1, x2, y2, color="blue"):
     dx = x2 - x1
     dy = y2 - y1
@@ -37,8 +38,9 @@ def draw_line_brute_force(x1, y1, x2, y2, color="blue"):
         for x in range(x1, x2 + 1):
             y = y1 + round(m * (x - x1))
             draw_point(x, y, color)
+    update_image()
 
-# Function to draw a line using Bresenham's algorithm
+# Algorithm Bresenham
 def draw_line_bresenham(x1, y1, x2, y2, color="green"):
     dx = abs(x2 - x1)
     dy = abs(y2 - y1)
@@ -56,8 +58,9 @@ def draw_line_bresenham(x1, y1, x2, y2, color="green"):
         if e2 < dx:
             err += dx
             y1 += sy
+    update_image()
 
-# Function to draw a circle using Bresenham's algorithm
+# Algorithm Circle Bresenham
 def draw_circle_bresenham(xc, yc, r, color="purple"):
     x = 0
     y = r
@@ -76,12 +79,20 @@ def draw_circle_bresenham(xc, yc, r, color="purple"):
             d = d + 4 * (x - y) + 10
         else:
             d = d + 4 * x + 6
+    update_image()
 
 # Function to update and display image on canvas
 def update_image():
     global photo_image
     photo_image = ImageTk.PhotoImage(image)
     canvas.create_image(0, 0, anchor=tk.NW, image=photo_image)
+
+# Function to clear canvas
+def clear_canvas():
+    global image, draw
+    image = Image.new("RGB", (width, height), "white")
+    draw = ImageDraw.Draw(image)
+    update_image()
 
 # Error checking for line drawing
 def validate_line_input():
@@ -101,38 +112,30 @@ def validate_circle_input():
 def display_dda():
     if not validate_line_input():
         return
-    image.paste("white", [0, 0, width, height])  # Clear canvas
     x1, y1, x2, y2 = int(entry_x1.get()), int(entry_y1.get()), int(entry_x2.get()), int(entry_y2.get())
-    draw_line_dda(x1, y1, x2, y2, color="red")
-    update_image()
+    draw_line_dda(x1, y1, x2, y2, color="black")
 
 def display_brute_force():
     if not validate_line_input():
         return
-    image.paste("white", [0, 0, width, height])  # Clear canvas
     x1, y1, x2, y2 = int(entry_x1.get()), int(entry_y1.get()), int(entry_x2.get()), int(entry_y2.get())
     draw_line_brute_force(x1, y1, x2, y2, color="blue")
-    update_image()
 
 def display_bresenham():
     if not validate_line_input():
         return
-    image.paste("white", [0, 0, width, height])  # Clear canvas
     x1, y1, x2, y2 = int(entry_x1.get()), int(entry_y1.get()), int(entry_x2.get()), int(entry_y2.get())
     draw_line_bresenham(x1, y1, x2, y2, color="green")
-    update_image()
 
 def display_circle():
     if not validate_circle_input():
         return
-    image.paste("white", [0, 0, width, height])  # Clear canvas
     xc, yc, r = int(entry_xc.get()), int(entry_yc.get()), int(entry_r.get())
     draw_circle_bresenham(xc, yc, r, color="purple")
-    update_image()
 
 # Setup GUI
 root = tk.Tk()
-root.title("Line Drawing Algorithms")
+root.title("Line and Circle Drawing Algorithms")
 
 # Canvas widget for displaying image
 canvas = tk.Canvas(root, width=width, height=height)
@@ -180,6 +183,10 @@ button_bresenham.grid(row=3, column=4, columnspan=2, padx=5, pady=5)
 
 button_circle = tk.Button(root, text="Bresenham Circle", command=display_circle)
 button_circle.grid(row=3, column=6, columnspan=2, padx=5, pady=5)
+
+# Button to clear canvas
+button_clear = tk.Button(root, text="Clear Canvas", command=clear_canvas)
+button_clear.grid(row=4, column=0, columnspan=6, padx=5, pady=10)
 
 # Initialize and show
 update_image()

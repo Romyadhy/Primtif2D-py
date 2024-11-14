@@ -12,7 +12,6 @@ def draw_point():
     glVertex2f(0.0, 0.2)
     glVertex2f(0.0, 0.3)
     glVertex2f(0.0, 0.4)
-    glEnd()
 
 # Fungsi untuk menggambar garis
 def draw_line():
