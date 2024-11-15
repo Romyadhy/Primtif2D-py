@@ -94,14 +94,14 @@ def clear_canvas():
     draw = ImageDraw.Draw(image)
     update_image()
 
-# Error checking for line drawing
+
 def validate_line_input():
     if not entry_x1.get() or not entry_y1.get() or not entry_x2.get() or not entry_y2.get():
         messagebox.showerror("Input Error", "Please enter all coordinates for the line.")
         return False
     return True
 
-# Error checking for circle drawing
+
 def validate_circle_input():
     if not entry_xc.get() or not entry_yc.get() or not entry_r.get():
         messagebox.showerror("Input Error", "Please enter center and radius for the circle.")
@@ -173,10 +173,10 @@ entry_r.grid(row=2, column=5)
 
 # Buttons for each algorithm
 button_dda = tk.Button(root, text="DDA Line", command=display_dda)
-button_dda.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
+button_dda.grid(row=0, column=6, columnspan=2, padx=0, pady=0)
 
 button_brute = tk.Button(root, text="Brute Force Line", command=display_brute_force)
-button_brute.grid(row=3, column=2, columnspan=2, padx=5, pady=5)
+button_brute.grid(row=0, column=4, columnspan=2, padx=5, pady=5)
 
 button_bresenham = tk.Button(root, text="Bresenham Line", command=display_bresenham)
 button_bresenham.grid(row=3, column=4, columnspan=2, padx=5, pady=5)
