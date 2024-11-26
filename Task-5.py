@@ -3,7 +3,7 @@ from tkinter import messagebox
 from PIL import Image, ImageDraw, ImageTk
 
 # Generate Canvas
-width, height = 900, 500
+width, height = 900, 400
 image = Image.new("RGB", (width, height), "white")
 draw = ImageDraw.Draw(image)
 
@@ -173,20 +173,20 @@ entry_r.grid(row=2, column=5)
 
 # Buttons for each algorithm
 button_dda = tk.Button(root, text="DDA Line", command=display_dda)
-button_dda.grid(row=0, column=6, columnspan=2, padx=0, pady=0)
+button_dda.grid(row=4, column=0, columnspan=2, padx=3, pady=5)
 
 button_brute = tk.Button(root, text="Brute Force Line", command=display_brute_force)
-button_brute.grid(row=0, column=4, columnspan=2, padx=5, pady=5)
+button_brute.grid(row=4, column=1, columnspan=2, padx=3, pady=10)
 
 button_bresenham = tk.Button(root, text="Bresenham Line", command=display_bresenham)
-button_bresenham.grid(row=3, column=4, columnspan=2, padx=5, pady=5)
+button_bresenham.grid(row=4, column=2, columnspan=2, padx=3, pady=10)
 
 button_circle = tk.Button(root, text="Bresenham Circle", command=display_circle)
-button_circle.grid(row=3, column=6, columnspan=2, padx=5, pady=5)
+button_circle.grid(row=4, column=3, columnspan=2, padx=3, pady=10)
 
 # Button to clear canvas
 button_clear = tk.Button(root, text="Clear Canvas", command=clear_canvas)
-button_clear.grid(row=4, column=0, columnspan=6, padx=5, pady=10)
+button_clear.grid(row=5, column=0, columnspan=6, padx=10, pady=20)
 
 # Initialize and show
 update_image()
