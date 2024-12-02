@@ -155,4 +155,4 @@ pairs = read_pairs(pairs_file)
 
 # Animasi
 draw_2d_primitives(pairs, points, output_file="img/output_static.png")
-animate_combined_transformations(points, pairs, num_frames=30, dx=5, dy=2, sx=1.0, sy=1.03, rotation_angle=10, rotation_center=(200, 200))
+animate_combined_transformations(points, pairs, num_frames=30, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=12, rotation_center=(200, 200))
