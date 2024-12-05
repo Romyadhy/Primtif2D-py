@@ -1,26 +1,26 @@
 import numpy as np
 from PIL import Image, ImageDraw
 
-# Fungsi membaca points
+# Read Points
 def read_points(file_path):
     points = []
     with open(file_path, "r") as file:
         for line in file:
-            x, y, z = map(int, line.strip().split(','))  # Baca x, y, z
-            points.append((x, y))  # Abaikan z
+            x, y, z = map(int, line.strip().split(','))  
+            points.append((x, y))  
     return points
 
-# Fungsi membaca pairs
+# Read Pairs
 def read_pairs(file_path):
     pairs = []
     with open(file_path, "r") as file:
         for line in file:
-            x1, y1, z1, x2, y2, z2 = map(int, line.strip().split(','))  # Baca x, y, z
-            pairs.append(((x1, y1), (x2, y2)))  # Abaikan z
+            x1, y1, z1, x2, y2, z2 = map(int, line.strip().split(','))  
+            pairs.append(((x1, y1), (x2, y2)))  
     return pairs
 
-# Fungsi translasi menggunakan matriks
-def translate_with_matrix(points, pairs, dx, dy):
+# Translation Function
+def translationFunc(points, pairs, dx, dy):
     T = np.array([
         [1, 0, dx],
         [0, 1, dy],
@@ -42,8 +42,8 @@ def translate_with_matrix(points, pairs, dx, dy):
 
     return translated_points, translated_pairs
 
-# Fungsi scaling menggunakan matriks
-def scale_with_matrix(points, pairs, sx, sy):
+# Scale Function
+def scaleFunc(points, pairs, sx, sy):
     S = np.array([
         [sx, 0, 0],
         [0, sy, 0],
@@ -65,8 +65,8 @@ def scale_with_matrix(points, pairs, sx, sy):
     
     return scaled_points, scaled_pairs
 
-# Fungsi rotasi menggunakan matriks
-def rotate_with_matrix(points, pairs, angle_degrees, rotation_center=(0, 0)):
+# Rotate Function
+def rotateFunc(points, pairs, angle_degrees, rotation_center=(0, 0)):
     angle_radians = np.radians(angle_degrees)
     cx, cy = rotation_center
 
@@ -109,7 +109,7 @@ def rotate_with_matrix(points, pairs, angle_degrees, rotation_center=(0, 0)):
     
     return rotated_points, rotated_pairs
 
-# Fungsi menggambar frame
+# Draw Frame
 def draw_2d_primitives(pairs, points, image_size=(400, 500), output_file=None):
     image = Image.new("RGB", image_size, "white")
     draw = ImageDraw.Draw(image)
@@ -125,14 +125,14 @@ def draw_2d_primitives(pairs, points, image_size=(400, 500), output_file=None):
         print(f"Gambar berhasil disimpan: {output_file}")
     return image
 
-# Fungsi animasi gabungan
+# Call all function in tranformations
 def animate_combined_transformations(points, pairs, image_size=(900, 600), num_frames=0, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=0, rotation_center=None, output_file="img/TransformasiGeo/combined_animation.gif"):
     frames = []
 
     for frame in range(num_frames):
-        translated_points, translated_pairs = translate_with_matrix(points, pairs, dx * frame, dy * frame)
-        scaled_points, scaled_pairs = scale_with_matrix(translated_points, translated_pairs, sx ** frame, sy ** frame)
-        rotated_points, rotated_pairs = rotate_with_matrix(scaled_points, scaled_pairs, rotation_angle * frame, rotation_center)
+        translated_points, translated_pairs = translationFunc(points, pairs, dx * frame, dy * frame)
+        scaled_points, scaled_pairs = scaleFunc(translated_points, translated_pairs, sx ** frame, sy ** frame)
+        rotated_points, rotated_pairs = rotateFunc(scaled_points, scaled_pairs, rotation_angle * frame, rotation_center)
         frame_image = draw_2d_primitives(rotated_pairs, rotated_points, image_size=image_size)
         frames.append(frame_image)
 
@@ -145,14 +145,14 @@ def animate_combined_transformations(points, pairs, image_size=(900, 600), num_f
     )
     print(f"Animasi gabungan telah disimpan sebagai: {output_file}")
 
-# Input Files
+# Input File txt
 points_file = "NewTask/points.txt"
 pairs_file = "NewTask/pairs.txt"
 
-# Baca file
+# Read file input
 points = read_points(points_file)
 pairs = read_pairs(pairs_file)
 
-# Animasi
+# Call a function to display and to doing a tranformations 
 draw_2d_primitives(pairs, points, output_file="img/output_static.png")
 animate_combined_transformations(points, pairs, num_frames=30, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=12, rotation_center=(200, 200))
