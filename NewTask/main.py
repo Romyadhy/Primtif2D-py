@@ -10,17 +10,17 @@ def read_points(file_path):
             points.append((x, y))  
     return points
 
-# Read Pairs
-def read_pairs(file_path):
-    pairs = []
+# Read Lines
+def read_lines(file_path):
+    lines = []
     with open(file_path, "r") as file:
         for line in file:
-            x1, y1, z1, x2, y2, z2 = map(int, line.strip().split(','))  
-            pairs.append(((x1, y1), (x2, y2)))  
-    return pairs
+            start, end = map(int, line.strip().split())  
+            lines.append((start, end))  
+    return lines
 
 # Translation Function
-def translationFunc(points, pairs, dx, dy):
+def translationFunc(points, lines, dx, dy):
     T = np.array([
         [1, 0, dx],
         [0, 1, dy],
@@ -31,19 +31,10 @@ def translationFunc(points, pairs, dx, dy):
     translated_points = T @ points_homogeneous
     translated_points = [(int(x), int(y)) for x, y in translated_points[:2].T]
 
-    translated_pairs = []
-    for (x1, y1), (x2, y2) in pairs:
-        pair_points = np.array([[x1, y1, 1], [x2, y2, 1]]).T
-        translated_pair_points = T @ pair_points
-        translated_pairs.append((
-            (int(translated_pair_points[0][0]), int(translated_pair_points[1][0])),
-            (int(translated_pair_points[0][1]), int(translated_pair_points[1][1]))
-        ))
-
-    return translated_points, translated_pairs
+    return translated_points, lines
 
 # Scale Function
-def scaleFunc(points, pairs, sx, sy):
+def scaleFunc(points, lines, sx, sy):
     S = np.array([
         [sx, 0, 0],
         [0, sy, 0],
@@ -54,19 +45,10 @@ def scaleFunc(points, pairs, sx, sy):
     scaled_points = S @ points_homogeneous
     scaled_points = [(int(x), int(y)) for x, y in scaled_points[:2].T]
     
-    scaled_pairs = []
-    for (x1, y1), (x2, y2) in pairs:
-        pair_points = np.array([[x1, y1, 1], [x2, y2, 1]]).T
-        scaled_pair_points = S @ pair_points
-        scaled_pairs.append((
-            (int(scaled_pair_points[0][0]), int(scaled_pair_points[1][0])),
-            (int(scaled_pair_points[0][1]), int(scaled_pair_points[1][1]))
-        ))
-    
-    return scaled_points, scaled_pairs
+    return scaled_points, lines
 
 # Rotate Function
-def rotateFunc(points, pairs, angle_degrees, rotation_center=(0, 0)):
+def rotateFunc(points, lines, angle_degrees, rotation_center=(0, 0)):
     angle_radians = np.radians(angle_degrees)
     cx, cy = rotation_center
 
@@ -97,43 +79,34 @@ def rotateFunc(points, pairs, angle_degrees, rotation_center=(0, 0)):
     points_homogeneous = np.array([[x, y, 1] for x, y in points]).T
     rotated_points = transform_matrix @ points_homogeneous
     rotated_points = [(int(x), int(y)) for x, y in rotated_points[:2].T]
-
-    rotated_pairs = []
-    for (x1, y1), (x2, y2) in pairs:
-        pair_points = np.array([[x1, y1, 1], [x2, y2, 1]]).T
-        rotated_pair_points = transform_matrix @ pair_points
-        rotated_pairs.append((
-            (int(rotated_pair_points[0][0]), int(rotated_pair_points[1][0])),
-            (int(rotated_pair_points[0][1]), int(rotated_pair_points[1][1]))
-        ))
     
-    return rotated_points, rotated_pairs
+    return rotated_points, lines
 
-# Draw Frame
-def draw_2d_primitives(pairs, points, image_size=(400, 500), output_file=None):
+# Draw Line using input file
+def drawLine2D(lines, points, image_size=(400, 500), output_file=None):
     image = Image.new("RGB", image_size, "white")
     draw = ImageDraw.Draw(image)
     
-    for (x1, y1), (x2, y2) in pairs:
-        draw.line([(x1, y1), (x2, y2)], fill="green", width=2)
+    for start, end in lines:
+        draw.line([points[start], points[end]], fill="green")
 
     for x, y in points:
-        draw.ellipse([(x, y), (x, y)], fill="green")
+        draw.ellipse([(x, y), (x, y)], fill="green") 
 
     if output_file:
         image.save(output_file)
         print(f"Gambar berhasil disimpan: {output_file}")
     return image
 
-# Call all function in tranformations
-def animate_combined_transformations(points, pairs, image_size=(900, 600), num_frames=0, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=0, rotation_center=None, output_file="img/TransformasiGeo/combined_animation.gif"):
+# Call all function in transformations
+def tranformationsGeo(points, lines, image_size=(900, 600), num_frames=0, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=0, rotation_center=None, output_file="img/TransformasiGeo/combined_animation.gif"):
     frames = []
 
     for frame in range(num_frames):
-        translated_points, translated_pairs = translationFunc(points, pairs, dx * frame, dy * frame)
-        scaled_points, scaled_pairs = scaleFunc(translated_points, translated_pairs, sx ** frame, sy ** frame)
-        rotated_points, rotated_pairs = rotateFunc(scaled_points, scaled_pairs, rotation_angle * frame, rotation_center)
-        frame_image = draw_2d_primitives(rotated_pairs, rotated_points, image_size=image_size)
+        translated_points, translated_lines = translationFunc(points, lines, dx * frame, dy * frame)
+        scaled_points, scaled_lines = scaleFunc(translated_points, translated_lines, sx ** frame, sy ** frame)
+        rotated_points, rotated_lines = rotateFunc(scaled_points, scaled_lines, rotation_angle * frame, rotation_center)
+        frame_image = drawLine2D(rotated_lines, rotated_points, image_size=image_size)
         frames.append(frame_image)
 
     frames[0].save(
@@ -147,12 +120,12 @@ def animate_combined_transformations(points, pairs, image_size=(900, 600), num_f
 
 # Input File txt
 points_file = "NewTask/points.txt"
-pairs_file = "NewTask/pairs.txt"
+lines_file = "NewTask/lines.txt"
 
 # Read file input
 points = read_points(points_file)
-pairs = read_pairs(pairs_file)
+lines = read_lines(lines_file)
 
-# Call a function to display and to doing a tranformations 
-draw_2d_primitives(pairs, points, output_file="img/output_static.png")
-animate_combined_transformations(points, pairs, num_frames=30, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=12, rotation_center=(200, 200))
+# Call a function to display and to doing a transformations 
+drawLine2D(lines, points, output_file="img/output_static.png")
+tranformationsGeo(points, lines, num_frames=60, dx=0, dy=0, sx=1.0, sy=1.01, rotation_angle=-1.5, rotation_center=(200, 200))
