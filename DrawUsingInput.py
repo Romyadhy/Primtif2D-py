@@ -60,6 +60,20 @@ def draw_line_bresenham(x1, y1, x2, y2, color="green"):
             y1 += sy
     update_image()
 
+# Draw using click
+start_point = None
+def on_canvas_click(event):
+    global start_point
+    if start_point is None:
+        # First click: record the starting point
+        start_point = (event.x, event.y)
+    else:
+        # Second click: draw the line and reset the start point
+        end_point = (event.x, event.y)
+        draw_line_dda(start_point[0], start_point[1], end_point[0], end_point[1])
+        start_point = None
+
+
 # Algorithm Circle Bresenham
 def draw_circle_bresenham(xc, yc, r, color="purple"):
     x = 0
@@ -89,7 +103,8 @@ def update_image():
 
 # Function to clear canvas
 def clear_canvas():
-    global image, draw
+    global image, draw, start_point
+    start_point = None
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
     update_image()
@@ -136,6 +151,8 @@ def display_circle():
 # Setup GUI
 root = tk.Tk()
 root.title("Line and Circle Drawing Algorithms")
+
+
 
 # Canvas widget for displaying image
 canvas = tk.Canvas(root, width=width, height=height)
@@ -187,6 +204,9 @@ button_circle.grid(row=4, column=3, columnspan=2, padx=3, pady=10)
 # Button to clear canvas
 button_clear = tk.Button(root, text="Clear Canvas", command=clear_canvas)
 button_clear.grid(row=5, column=0, columnspan=6, padx=10, pady=20)
+
+# Bind mouse click to canvas
+canvas.bind("<Button-1>", on_canvas_click)
 
 # Initialize and show
 update_image()

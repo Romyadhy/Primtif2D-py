@@ -1,6 +1,11 @@
 import numpy as np
 from PIL import Image, ImageDraw
 
+
+# Input File txt
+points_file = "ScriptPrimtif2D/points.txt"
+lines_file = "ScriptPrimtif2D/lines.txt"
+
 # Read Points
 def read_points(file_path):
     points = []
@@ -18,6 +23,10 @@ def read_lines(file_path):
             start, end = map(int, line.strip().split())  
             lines.append((start, end))  
     return lines
+
+# Read file input
+points = read_points(points_file)
+lines = read_lines(lines_file)
 
 # Translation Function
 def translationFunc(points, lines, dx, dy):
@@ -83,15 +92,15 @@ def rotateFunc(points, lines, angle_degrees, rotation_center=(0, 0)):
     return rotated_points, lines
 
 # Draw Line using input file
-def drawLine2D(lines, points, image_size=(400, 500), output_file=None):
+def drawLine2D(lines, points, image_size=(900, 800), output_file=None):
     image = Image.new("RGB", image_size, "white")
     draw = ImageDraw.Draw(image)
-    
-    for start, end in lines:
-        draw.line([points[start], points[end]], fill="green")
 
     for x, y in points:
-        draw.ellipse([(x, y), (x, y)], fill="green") 
+        draw.ellipse([(x, y), (x, y)], fill="red") 
+    
+    for start, end in lines:
+        draw.line([points[start], points[end]], fill="red")
 
     if output_file:
         image.save(output_file)
@@ -99,7 +108,7 @@ def drawLine2D(lines, points, image_size=(400, 500), output_file=None):
     return image
 
 # Call all function in transformations
-def tranformationsGeo(points, lines, image_size=(900, 600), num_frames=0, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=0, rotation_center=None, output_file="img/TransformasiGeo/combined_animation.gif"):
+def tranformationsGeo(points, lines, image_size=(900, 800), num_frames=0, dx=0, dy=0, sx=1.0, sy=1.0, rotation_angle=0, rotation_center=None, output_file="img/TransformasiGeo/combined_animation.gif"):
     frames = []
 
     for frame in range(num_frames):
@@ -118,14 +127,6 @@ def tranformationsGeo(points, lines, image_size=(900, 600), num_frames=0, dx=0, 
     )
     print(f"Animasi gabungan telah disimpan sebagai: {output_file}")
 
-# Input File txt
-points_file = "NewTask/points.txt"
-lines_file = "NewTask/lines.txt"
-
-# Read file input
-points = read_points(points_file)
-lines = read_lines(lines_file)
-
 # Call a function to display and to doing a transformations 
 drawLine2D(lines, points, output_file="img/output_static.png")
-tranformationsGeo(points, lines, num_frames=60, dx=0, dy=0, sx=1.0, sy=1.01, rotation_angle=-1.5, rotation_center=(200, 200))
+tranformationsGeo(points, lines, num_frames=60, dx=5, dy=0, sx=1.0, sy=1.0, rotation_angle=0, rotation_center=(0, 0))

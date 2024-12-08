@@ -25,6 +25,9 @@ Clone this repository:
   - Tkinter: `pip install tk`
   - Pillow: `pip install Pillow`
 
+**Structure File**
+You can see all the code in folder, and some output in folder img
+
 You can see all those file about my code, and you can costomised those as free 😁
 _Enjoy and stay Code🔥🔥_
 
