@@ -1,7 +1,6 @@
 import numpy as np
 from PIL import Image, ImageDraw
 
-
 # Input File txt
 points_file = "ScriptPrimtif2D/points.txt"
 lines_file = "ScriptPrimtif2D/lines.txt"
@@ -12,7 +11,7 @@ def read_points(file_path):
     with open(file_path, "r") as file:
         for line in file:
             x, y, z = map(int, line.strip().split(','))  
-            points.append((x, y))  
+            points.append((x, y, z))  
     return points
 
 # Read Lines
@@ -61,28 +60,28 @@ def rotateFunc(points, lines, angle_degrees, rotation_center=(0, 0)):
     angle_radians = np.radians(angle_degrees)
     cx, cy = rotation_center
 
-    # Translasi ke origin
+    # Translation into the origin
     T_to_origin = np.array([
         [1, 0, -cx],
         [0, 1, -cy],
         [0, 0, 1]
     ])
 
-    # Matriks rotasi
+    # Matriks Rotation
     R = np.array([
         [np.cos(angle_radians), -np.sin(angle_radians), 0],
         [np.sin(angle_radians), np.cos(angle_radians), 0],
         [0, 0, 1]
     ])
 
-    # Translasi kembali
+    # Translation back
     T_back = np.array([
         [1, 0, cx],
         [0, 1, cy],
         [0, 0, 1]
     ])
     
-    # Gabungkan transformasi
+    # Combination Transformation
     transform_matrix = T_back @ R @ T_to_origin
 
     points_homogeneous = np.array([[x, y, 1] for x, y in points]).T
@@ -96,15 +95,15 @@ def drawLine2D(lines, points, image_size=(900, 800), output_file=None):
     image = Image.new("RGB", image_size, "white")
     draw = ImageDraw.Draw(image)
 
-    for x, y in points:
-        draw.ellipse([(x, y), (x, y)], fill="red") 
+    for x, y, z in points:
+        draw.ellipse([(x, y, z), (x, y, z)], fill="red") 
     
     for start, end in lines:
         draw.line([points[start], points[end]], fill="red")
 
     if output_file:
         image.save(output_file)
-        print(f"Gambar berhasil disimpan: {output_file}")
+        print(f"Image saved: {output_file}")
     return image
 
 # Call all function in transformations
@@ -125,8 +124,8 @@ def tranformationsGeo(points, lines, image_size=(900, 800), num_frames=0, dx=0, 
         duration=100,
         loop=0
     )
-    print(f"Animasi gabungan telah disimpan sebagai: {output_file}")
+    print(f"Combinate Tranformation saved: {output_file}")
 
 # Call a function to display and to doing a transformations 
 drawLine2D(lines, points, output_file="img/output_static.png")
-tranformationsGeo(points, lines, num_frames=60, dx=5, dy=0, sx=1.0, sy=1.0, rotation_angle=0, rotation_center=(0, 0))
+tranformationsGeo(points, lines, num_frames=60, dx=0, dy=0, sx=1.02, sy=1.01, rotation_angle=0, rotation_center=(200, 200))
