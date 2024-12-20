@@ -11,7 +11,7 @@ def read_points(file_path):
     with open(file_path, "r") as file:
         for line in file:
             x, y, z = map(int, line.strip().split(','))  
-            points.append((x, y, z))  
+            points.append((x, y))  
     return points
 
 # Read Lines
@@ -95,8 +95,8 @@ def drawLine2D(lines, points, image_size=(900, 800), output_file=None):
     image = Image.new("RGB", image_size, "white")
     draw = ImageDraw.Draw(image)
 
-    for x, y, z in points:
-        draw.ellipse([(x, y, z), (x, y, z)], fill="red") 
+    for x, y in points:
+        draw.ellipse([(x, y), (x, y)], fill="red") 
     
     for start, end in lines:
         draw.line([points[start], points[end]], fill="red")

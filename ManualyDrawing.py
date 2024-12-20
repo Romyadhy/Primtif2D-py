@@ -63,62 +63,86 @@ draw_point(60, 50, color="blue")
 draw_point(61, 50, color="blue")
 draw_point(62, 50, color="blue")
 
+draw_line_bresenham(235, 258, 310, 99, color="black")
+draw_line_bresenham(312, 102, 352, 246, color="black")
+draw_line_bresenham(240, 260, 352, 250, color="black")
+draw_line_bresenham(314, 103, 382, 228, color="black")
+draw_line_bresenham(355, 247, 380, 228, color="black")
+draw_line_bresenham(238, 256, 307, 225, color="black")
+draw_line_bresenham(238, 256, 307, 225, color="black")
+draw_line_bresenham(312, 108, 307, 227, color="black")
+draw_line_bresenham(312, 226, 377, 224, color="black")
+
+
+draw_line_bresenham(0, 226, 377, 224, color="black")
+draw_line_bresenham(312, 226, 377, 224, color="black")
+draw_line_bresenham(312, 226, 377, 224, color="black")
+
+
+# draw_line_bresenham(668, 104, 235, 258, color="black")
+
+
+
+
+
+
+
 
 # Draw lines using DDA and Bresenham's algorithms
 # draw_line_dda(100, 100, 400, 300, color="red")      
 # draw_line_bresenham(-10, 100, 100, -10, color="green") 
 # RECT INSIDE
-draw_line_bresenham(80, 80, 220, 80, color="green") #atas
-draw_line_bresenham(80, 150, 80, 80, color="green") #kiri
-draw_line_bresenham(220, 150, 220, 80, color="green") #kanan
-draw_line_bresenham(80, 150, 220, 150, color="green") #bawah
+# draw_line_bresenham(80, 80, 220, 80, color="green") #atas
+# draw_line_bresenham(80, 150, 80, 80, color="green") #kiri
+# draw_line_bresenham(220, 150, 220, 80, color="green") #kanan
+# draw_line_bresenham(80, 150, 220, 150, color="green") #bawah
 
-#RECT OUTSIDE
-draw_line_bresenham(50, 50, 250, 50, color="green") #atas
-draw_line_bresenham(50, 50, 50, 300, color="green") #kiri
-draw_line_bresenham(250, 50, 250, 300, color="green") #kanan
-# draw_line_bresenham(50, 300, 250, 300, color="green") #kanan
-# RECT OUTSIDE (Garis Bawah Bergelombang)
-draw_line_bresenham(50, 300, 55, 295, color="green")
-draw_line_bresenham(55, 295, 60, 300, color="green")
-draw_line_bresenham(60, 300, 65, 295, color="green")
-draw_line_bresenham(65, 295, 70, 300, color="green")
-draw_line_bresenham(70, 300, 75, 295, color="green")
-draw_line_bresenham(75, 295, 80, 300, color="green")
-draw_line_bresenham(80, 300, 85, 295, color="green")
-draw_line_bresenham(85, 295, 90, 300, color="green")
-draw_line_bresenham(90, 300, 95, 295, color="green")
-draw_line_bresenham(95, 295, 100, 300, color="green")
-draw_line_bresenham(100, 300, 105, 295, color="green")
-draw_line_bresenham(105, 295, 110, 300, color="green")
-draw_line_bresenham(110, 300, 115, 295, color="green")
-draw_line_bresenham(115, 295, 120, 300, color="green")
-draw_line_bresenham(120, 300, 125, 295, color="green")
-draw_line_bresenham(125, 295, 130, 300, color="green")
-draw_line_bresenham(130, 300, 135, 295, color="green")
-draw_line_bresenham(135, 295, 140, 300, color="green")
-draw_line_bresenham(140, 300, 145, 295, color="green")
-draw_line_bresenham(145, 295, 150, 300, color="green")
-draw_line_bresenham(150, 300, 155, 295, color="green")
-draw_line_bresenham(155, 295, 160, 300, color="green")
-draw_line_bresenham(160, 300, 165, 295, color="green")
-draw_line_bresenham(165, 295, 170, 300, color="green")
-draw_line_bresenham(170, 300, 175, 295, color="green")
-draw_line_bresenham(175, 295, 180, 300, color="green")
-draw_line_bresenham(180, 300, 185, 295, color="green")
-draw_line_bresenham(185, 295, 190, 300, color="green")
-draw_line_bresenham(190, 300, 195, 295, color="green")
-draw_line_bresenham(195, 295, 200, 300, color="green")
-draw_line_bresenham(200, 300, 205, 295, color="green")
-draw_line_bresenham(205, 295, 210, 300, color="green")
-draw_line_bresenham(210, 300, 215, 295, color="green")
-draw_line_bresenham(215, 295, 220, 300, color="green")
-draw_line_bresenham(220, 300, 225, 295, color="green")
-draw_line_bresenham(225, 295, 230, 300, color="green")
-draw_line_bresenham(230, 300, 235, 295, color="green")
-draw_line_bresenham(235, 295, 240, 300, color="green")
-draw_line_bresenham(240, 300, 245, 295, color="green")
-draw_line_bresenham(245, 295, 250, 300, color="green")
+# #RECT OUTSIDE
+# draw_line_bresenham(50, 50, 250, 50, color="green") #atas
+# draw_line_bresenham(50, 50, 50, 300, color="green") #kiri
+# draw_line_bresenham(250, 50, 250, 300, color="green") #kanan
+# # draw_line_bresenham(50, 300, 250, 300, color="green") #kanan
+# # RECT OUTSIDE (Garis Bawah Bergelombang)
+# draw_line_bresenham(50, 300, 55, 295, color="green")
+# draw_line_bresenham(55, 295, 60, 300, color="green")
+# draw_line_bresenham(60, 300, 65, 295, color="green")
+# draw_line_bresenham(65, 295, 70, 300, color="green")
+# draw_line_bresenham(70, 300, 75, 295, color="green")
+# draw_line_bresenham(75, 295, 80, 300, color="green")
+# draw_line_bresenham(80, 300, 85, 295, color="green")
+# draw_line_bresenham(85, 295, 90, 300, color="green")
+# draw_line_bresenham(90, 300, 95, 295, color="green")
+# draw_line_bresenham(95, 295, 100, 300, color="green")
+# draw_line_bresenham(100, 300, 105, 295, color="green")
+# draw_line_bresenham(105, 295, 110, 300, color="green")
+# draw_line_bresenham(110, 300, 115, 295, color="green")
+# draw_line_bresenham(115, 295, 120, 300, color="green")
+# draw_line_bresenham(120, 300, 125, 295, color="green")
+# draw_line_bresenham(125, 295, 130, 300, color="green")
+# draw_line_bresenham(130, 300, 135, 295, color="green")
+# draw_line_bresenham(135, 295, 140, 300, color="green")
+# draw_line_bresenham(140, 300, 145, 295, color="green")
+# draw_line_bresenham(145, 295, 150, 300, color="green")
+# draw_line_bresenham(150, 300, 155, 295, color="green")
+# draw_line_bresenham(155, 295, 160, 300, color="green")
+# draw_line_bresenham(160, 300, 165, 295, color="green")
+# draw_line_bresenham(165, 295, 170, 300, color="green")
+# draw_line_bresenham(170, 300, 175, 295, color="green")
+# draw_line_bresenham(175, 295, 180, 300, color="green")
+# draw_line_bresenham(180, 300, 185, 295, color="green")
+# draw_line_bresenham(185, 295, 190, 300, color="green")
+# draw_line_bresenham(190, 300, 195, 295, color="green")
+# draw_line_bresenham(195, 295, 200, 300, color="green")
+# draw_line_bresenham(200, 300, 205, 295, color="green")
+# draw_line_bresenham(205, 295, 210, 300, color="green")
+# draw_line_bresenham(210, 300, 215, 295, color="green")
+# draw_line_bresenham(215, 295, 220, 300, color="green")
+# draw_line_bresenham(220, 300, 225, 295, color="green")
+# draw_line_bresenham(225, 295, 230, 300, color="green")
+# draw_line_bresenham(230, 300, 235, 295, color="green")
+# draw_line_bresenham(235, 295, 240, 300, color="green")
+# draw_line_bresenham(240, 300, 245, 295, color="green")
+# draw_line_bresenham(245, 295, 250, 300, color="green")
 
 
 
